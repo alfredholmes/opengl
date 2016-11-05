@@ -55,6 +55,12 @@ void SimpleShader::bind()
 	glUseProgram(shaderProgram);
 	
 }
+void SimpleShader::unbind()
+{
+	glUseProgram(0);
+
+	
+}
 
 std::string SimpleShader::openFile(const char* path)
 {

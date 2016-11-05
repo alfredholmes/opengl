@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
+#include <math.h>
 #include "simpleshader.h"
 int main()
 {
@@ -40,10 +41,10 @@ int main()
 	}
 
 	GLfloat vertices[] = {
-		 0.5f,  0.5f,  0.0f,
-		 0.5f,  -0.5f, 0.0f,
-		-0.5f,  -0.5f, 0.0f,
-		-0.5f,  0.8f,  0.0f
+		 1.0f,  1.0f,  1.0f,
+		 1.0f,  -1.0f, 0.5f,
+		-1.0f,  -1.0f, 0.7f,
+		-1.0f,  1.0f,  0.3f
 	};
 
 	GLuint indices[] = {
@@ -77,14 +78,19 @@ int main()
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
+	GLint color = shader.getUniform("programColor");
+
+
 	while(!glfwWindowShouldClose(window))
 	{
 
 		glfwPollEvents();
 		shader.bind();
+		glUniform4f(color, sin(3 * glfwGetTime())/2 + 0.5, cos(glfwGetTime()) / 2 + .5f, sin(1 - 5 * glfwGetTime())/2 + 0.5, 1.0f);
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
+		shader.unbind();
 		glfwSwapBuffers(window);
 	}
 

@@ -17,8 +17,11 @@ public:
 	~SimpleShader();
 
 	void bind();
+	void unbind();
 
 	int getError() { return error; }
+
+	GLint getUniform(const char* v) { return glGetUniformLocation(shaderProgram, v); }
 
 private:
 	std::string openFile(const char* path);
