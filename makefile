@@ -8,7 +8,7 @@ OBJDIR = obj
 SRCDIR = src
 BINDIR = bin
 
-BIN = opengl
+BIN = opengl.out
 
 INCLUDE = -I include/ -lGLEW -lglfw -lGL
 
