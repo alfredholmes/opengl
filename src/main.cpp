@@ -5,13 +5,16 @@
 #include <iostream>
 #include <math.h>
 #include "simpleshader.h"
+
+void resize(GLFWwindow* window, int width, int height);
+
 int main()
 {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 
 	GLFWwindow* window = glfwCreateWindow(800, 600, "OPENGL!!!!", 0, 0);
 	if(window == 0)
@@ -20,7 +23,10 @@ int main()
 		glfwTerminate();
 		return -1;
 	}
+
+	
 	glfwMakeContextCurrent(window);
+	glfwSetWindowSizeCallback(window, resize);
 	glewExperimental = GL_TRUE;
 
 	if(glewInit() != GLEW_OK)
@@ -96,4 +102,12 @@ int main()
 
 	glfwTerminate();
 	return 0;
+}
+
+void resize(GLFWwindow* window, int width, int height)
+{
+	
+	glfwGetFramebufferSize(window, &width, &height);
+	glViewport(0, 0, width, height);
+
 }
